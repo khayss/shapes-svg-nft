@@ -56,37 +56,32 @@ contract ShapesNft is ERC721, ERC721URIStorage, Ownable {
 
     // The following functions are overrides required by Solidity.
 
-    function tokenURI(
-        uint256 tokenId
-    ) public view override(ERC721, ERC721URIStorage) returns (string memory) {
-        return
-            string(
-                abi.encodePacked(
-                    _baseURI(),
-                    Base64.encode(
-                        bytes(
-                            abi.encodePacked(
-                                '{"name": "',
-                                name(),
-                                '", "id": "',
-                                tokenId.toString(),
-                                '", "description": "A shape NFT", "image": "',
-                                _shapesImageUri[getShape()],
-                                '"}'
-                            )
+    function tokenURI(uint256 tokenId) public view override(ERC721, ERC721URIStorage) returns (string memory) {
+        return string(
+            abi.encodePacked(
+                _baseURI(),
+                Base64.encode(
+                    bytes(
+                        abi.encodePacked(
+                            '{"name": "',
+                            name(),
+                            '", "id": "',
+                            tokenId.toString(),
+                            '", "description": "A shape NFT", "image": "',
+                            _shapesImageUri[getShape()],
+                            '"}'
                         )
                     )
                 )
-            );
+            )
+        );
     }
 
     function _baseURI() internal pure override returns (string memory) {
         return "data:application/json;base64,";
     }
 
-    function supportsInterface(
-        bytes4 interfaceId
-    ) public view override(ERC721, ERC721URIStorage) returns (bool) {
+    function supportsInterface(bytes4 interfaceId) public view override(ERC721, ERC721URIStorage) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 
